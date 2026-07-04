@@ -1,0 +1,6 @@
+segment,headcount,leavers,attrition_rate_pct,share_of_all_leavers_pct
+A. Burned-out juniors (JobLevel 1 + OverTime),156,82,52.6,34.6
+B. Early-tenure hires (<=1 yr at company),215,75,34.9,31.6
+C. Overtime sales reps,24,16,66.7,6.8
+"D. Stalled mid-tenure (4+ yrs since promotion, JobLevel 1-2)",157,22,14.0,9.3
+E. Low satisfaction + low income,63,27,42.9,11.4
