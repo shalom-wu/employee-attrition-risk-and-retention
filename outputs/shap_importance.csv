@@ -1,0 +1,45 @@
+feature,mean_abs_shap
+OverTime_Yes,0.7098
+MonthlyIncome,0.4709
+StockOptionLevel,0.4606
+Age,0.4022
+NumCompaniesWorked,0.3691
+YearsWithCurrManager,0.34
+EnvironmentSatisfaction,0.3268
+DistanceFromHome,0.3146
+RelationshipSatisfaction,0.3091
+JobSatisfaction,0.2942
+DailyRate,0.2551
+YearsSinceLastPromotion,0.2526
+JobRole_Software Engineer,0.2468
+BusinessTravel_Travel_Frequently,0.2401
+WorkLifeBalance,0.1966
+Department_Sales,0.1687
+HourlyRate,0.1556
+JobInvolvement,0.153
+MonthlyRate,0.1389
+Gender_Male,0.1308
+YearsInCurrentRole,0.1283
+TotalWorkingYears,0.1195
+PercentSalaryHike,0.116
+JobRole_Sales Executive,0.1115
+TrainingTimesLastYear,0.1071
+YearsAtCompany,0.0962
+JobRole_QA / Support Engineer,0.0853
+EducationField_Life Sciences,0.064
+MaritalStatus_Single,0.061
+Education,0.0552
+EducationField_Medical,0.051
+JobLevel,0.0441
+BusinessTravel_Travel_Rarely,0.0387
+JobRole_Sales Representative,0.0354
+JobRole_Solutions Consultant,0.0328
+EducationField_Other,0.0315
+MaritalStatus_Married,0.0283
+EducationField_Marketing,0.0277
+EducationField_Technical Degree,0.0246
+JobRole_Platform / DevOps Lead,0.0135
+JobRole_Manager,0.0031
+PerformanceRating,0.0
+Department_Human Resources,0.0
+JobRole_Human Resources,0.0
