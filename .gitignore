@@ -1,0 +1,24 @@
+# Environments
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Note: data/ is committed because the dataset is small (~220KB) and
+# publicly redistributable (see data/README.md). For non-redistributable
+# data, exclude it here and document the source in data/README.md instead.
