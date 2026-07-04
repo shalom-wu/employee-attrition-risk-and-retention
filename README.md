@@ -98,7 +98,6 @@ pip install -e .
 python scripts/run_eda.py
 python scripts/run_cost_model.py
 python scripts/run_modeling.py
-python scripts/build_deck.py        # rebuilds reports/strategy_deck.pptx
 python scripts/make_notebook.py     # re-executes the notebook
 
 pytest                              # data integrity + cost model tests
