@@ -1,0 +1,10 @@
+job_role,headcount,leavers,attrition_rate_pct,estimated_replacement_cost
+Sales Representative,83,33,39.8,516081.0
+QA / Support Engineer,259,62,23.9,1215342.0
+Human Resources,52,12,23.1,324935.0
+Sales Executive,326,57,17.5,3321203.0
+Software Engineer,292,47,16.1,867226.0
+Platform / DevOps Lead,145,10,6.9,571272.0
+Solutions Consultant,131,9,6.9,621043.0
+Manager,102,5,4.9,826615.0
+Engineering Director,80,2,2.5,411185.0

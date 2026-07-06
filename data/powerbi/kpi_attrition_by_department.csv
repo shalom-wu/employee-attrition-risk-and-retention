@@ -1,0 +1,4 @@
+department,headcount,leavers,attrition_rate_pct,estimated_replacement_cost
+Sales,446,92,20.6,4247175.0
+Human Resources,63,12,19.0,324935.0
+Engineering,961,133,13.8,4102790.0

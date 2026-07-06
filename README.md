@@ -107,6 +107,67 @@ The dataset ships with the repo (it is small and publicly redistributable);
 [data/README.md](data/README.md) documents the source and an alternative
 download path.
 
+## SQL and Power BI layer
+
+The project includes a local DuckDB layer in [sql/](sql). SQL is used for
+reproducible row-count checks, attrition KPI cuts, segment validation, and the
+Power BI export tables. Start with [sql/README.md](sql/README.md), then run:
+
+```bash
+python scripts/run_sql.py
+```
+
+The script exports Power BI-ready CSVs to `data/powerbi/`: employee fact data,
+department/job-role/overtime/tenure KPI cuts, cost by department, and the
+flight-risk segment table. The [power-bi/](power-bi) folder contains a dashboard
+brief, data model, DAX measures, manual build instructions, refresh steps, and
+static mockups. No `.pbix` is included yet; the folder documents the exact
+manual Power BI Desktop build rather than pretending a dashboard file exists.
+
+The workflow is: raw synthetic HR sample -> Python cleaning/cost/modeling ->
+DuckDB validation and KPI exports -> Power BI stakeholder dashboard.
+
+## Portfolio Use
+
+**CV bullets**
+
+- Built an end-to-end employee attrition analysis using Python, scikit-learn,
+  SHAP, and a cost model to identify retention-risk segments and replacement
+  cost exposure across 1,470 synthetic employee records.
+- Translated model output into a retention strategy: overtime-heavy junior
+  employees and early-tenure hires surfaced as the clearest intervention
+  candidates.
+- SQL-focused: Added DuckDB validation and KPI views that reproduce attrition,
+  cost, overtime, tenure, and segment cuts from the included project data.
+- Power BI-focused: Prepared dashboard-ready tables and build documentation for
+  an executive KPI, attrition diagnostic, and retention decision-support report.
+
+**LinkedIn description**
+
+> Employee Attrition Analysis & Retention Strategy - I built this project to
+> answer a practical HR question: where is attrition risk concentrated, and
+> what would it cost the business if those departures are not addressed? The
+> dataset is IBM's fictional HR sample via Kaggle, so I treated the results as
+> a decision-support framework rather than company truth.
+
+**Interview explanation**
+
+> "I used Python for the modeling and cost logic, SQL as the reproducible
+> validation layer, and Power BI as the stakeholder-facing version. The data is
+> synthetic and cross-sectional, so I would use this as a retention
+> prioritization framework, not proof that one factor causes attrition."
+
+**Likely interview questions**
+
+1. *Why use a synthetic HR dataset?* Because it is public and safe to share;
+   the portfolio signal is the workflow, cost framing, and interpretation.
+2. *How would this change with company data?* I would use time-based exits,
+   distinguish voluntary and involuntary turnover, and validate on a later
+   period.
+3. *How do the tools work together?* Python does modeling and cost work, SQL
+   checks definitions and exports KPI tables, and Power BI turns those same
+   definitions into a stakeholder dashboard.
+
 ## Caveats & limitations
 
 - **The data is synthetic and cross-sectional.** IBM generated it; there

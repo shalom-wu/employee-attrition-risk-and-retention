@@ -19,6 +19,10 @@ dist/
 .DS_Store
 Thumbs.db
 
+# Internal prep docs
+explainer-guide/
+docs/explain-it-to-me.md
+
 # Note: data/ is committed because the dataset is small (~220KB) and
 # publicly redistributable (see data/README.md). For non-redistributable
 # data, exclude it here and document the source in data/README.md instead.
