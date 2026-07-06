@@ -1,139 +1,94 @@
-# Employee Attrition: Cost Model, Prediction, and Retention Strategy
+# Employee Attrition Risk And Retention Strategy
 
-This repository analyzes employee attrition in the public IBM HR Analytics dataset. The workflow combines descriptive analysis, a replacement-cost model, interpretable classification, and intervention costing.
+This repository analyzes employee attrition in the public IBM HR Analytics dataset. It combines employee segmentation, a replacement-cost model, interpretable classification, and ROI-based retention planning.
 
-The dataset is synthetic, so the results should be read as a reproducible HR analytics framework rather than company-specific evidence. Source details are documented in [data-sources.md](data-sources.md) and [data/data_manifest.md](data/data_manifest.md).
+The dataset is synthetic, so the results should be read as a reusable HR analytics framework rather than company-specific evidence.
 
-## Key findings- **Attrition costs $8.67M/yr — 7.6% of payroll.** Average departure:
-  $36.6K ≈ 7.1 months of salary, from a four-component model (recruiting,
-  onboarding, vacancy, ramp-up) that lands inside SHRM's 6–9-month
-  benchmark and at the conservative end of Gallup's 0.5–2×-salary range.
-- **A third of all attrition comes from 11% of headcount**: junior (Level 1)
-  employees working overtime leave at **52.6%** vs. the 16.1% company
-  average. First-year employees leave at 34.9%; bottom-quartile earners at
-  29.3%.
-- **Models: logistic regression 0.81 ROC-AUC, XGBoost 0.79** (the simpler
-  model wins on this small tabular dataset, and is reported as such).
-  Drivers agree across both models and across SHAP/odds-ratio views:
-  overtime (~2× odds), low income/level/tenure, frequent travel — plus
-  **promotion stagnation (OR ≈ 1.6/SD), which only appears once tenure is
-  controlled for** and is invisible in raw segment cuts. At the operating
-  threshold, the model catches 71% of leavers while flagging 33% of staff.
-- **Broad pay raises fail the ROI test**: raising the bottom quartile 10%
-  costs $1.04M/yr recurring but saves only ~$0.40M in replacement costs.
-  The recommended package (targeted overtime reduction + first-year
-  experience program) projects **≈$1.25M/yr savings for ~$420K/yr cost
-  (~3× ROI)** — with effect sizes stated as assumptions and a pilot design
-  to validate them.
+## Project Summary
+
+| Area | Details |
+|---|---|
+| Business question | Which employee groups are most at risk of leaving, what does attrition cost, and which retention actions are economically justified? |
+| Data | IBM HR Analytics synthetic employee attrition dataset. |
+| Methods | Data quality checks, segment analysis, attrition cost modeling, logistic regression, XGBoost, SHAP, intervention ROI modeling. |
+| Main outputs | Strategy deck, summary report, model metrics, attrition cost tables, Power BI-ready exports. |
+| Tools | Python, pytest, DuckDB SQL, Power BI build documentation. |
+
+## Key Findings
+
+| # | Finding | Evidence |
+|---|---|---|
+| 1 | Attrition costs about $8.67M per year. | Replacement cost equals about 7.6% of payroll, using recruiting, onboarding, vacancy, and ramp-up assumptions. |
+| 2 | Attrition is concentrated in a small high-risk segment. | Junior employees working overtime are 11% of headcount but drive about one-third of all attrition. |
+| 3 | The simpler model is the clearest production candidate. | Logistic regression reaches 0.81 ROC-AUC, slightly ahead of XGBoost at 0.79 on this small tabular dataset. |
+| 4 | Raw segment cuts miss promotion stagnation. | Once tenure is controlled for, promotion stagnation appears as a material risk factor. |
+| 5 | Broad pay raises do not clear the ROI bar. | A targeted overtime and first-year experience program is the stronger economic option under the stated assumptions. |
 
 ![Overtime multiplies junior attrition](reports/figures/attrition_joblevel_x_overtime.png)
 
-## Repository structure
+## Data
 
-```
-├── data/                  # dataset + source/license documentation
-├── notebooks/
-│   └── attrition_analysis.ipynb   # executed walkthrough of the analysis
-├── src/attrition/         # reusable modules
-│   ├── data.py            #   loading, cleaning, quality checks
-│   ├── cost_model.py      #   cost-of-attrition calculator + assumptions
-│   ├── modeling.py        #   feature prep, training, evaluation
-│   └── viz.py             #   shared chart style
-├── scripts/               # pipeline entry points (run in order)
-├── reports/
-│   ├── strategy_deck.md / .pptx   # 8-slide strategy deck
-│   ├── summary.md         #   one-page written summary
-│   └── figures/           #   presentation-quality charts
-├── outputs/               # generated tables + data-quality/model reports
-└── tests/                 # data integrity + cost model tests
-```
+The project uses the public IBM HR Analytics synthetic employee attrition dataset. Source notes, redistribution details, and caveats are documented in [data-sources.md](data-sources.md) and [data/data_manifest.md](data/data_manifest.md).
 
-## Methodology (concise)
+Because the data is synthetic and cross-sectional, it should not be used to make claims about a real employer. The value of the project is the workflow: define the business question, quantify cost, model risk, and turn the model into an intervention plan.
 
-1. **Clean & explore** — drop zero-variance columns, document quality
-   issues ([outputs/data_quality_report.md](outputs/data_quality_report.md)),
-   compute attrition rates by department, role, level, tenure, overtime,
-   satisfaction, and pay; identify rule-based flight-risk segments.
-2. **Cost model** — four components per departure, tiered by job level:
-   recruiting (20% of salary), onboarding (10%), vacancy (1.5–4 months ×
-   salary), ramp-up (3–6 months at 50% productivity). Every multiplier is
-   stated in [src/attrition/cost_model.py](src/attrition/cost_model.py) and
-   sanity-checked against SHRM/Gallup published ranges (enforced by tests).
-3. **Predict** — logistic regression baseline + XGBoost, stratified 75/25
-   split, 5-fold CV, class-imbalance handling; evaluated on ROC-AUC/PR-AUC
-   with a recall-oriented operating threshold (accuracy is meaningless at a
-   16% base rate). Interpretation via odds ratios and SHAP.
-4. **Recommend** — three interventions costed against the segments they
-   target; recommendation includes overlap discounting, a pilot/control
-   design, and explicitly stated assumptions.
+## Methodology
 
-## Reproducing the analysis
+1. Clean and profile the employee table, including zero-variance columns and expected schema checks.
+2. Analyze attrition by department, role, level, tenure, overtime, satisfaction, pay, and business travel.
+3. Estimate replacement cost with recruiting, onboarding, vacancy, and ramp-up components.
+4. Train logistic regression and XGBoost models with class-imbalance handling and cross-validation.
+5. Explain the model with odds ratios and SHAP, then translate high-risk segments into costed interventions.
+
+## Repository Contents
+
+| Path | Purpose |
+|---|---|
+| [notebooks/](notebooks) | Executed analysis walkthrough. |
+| [src/attrition/](src/attrition) | Data prep, cost model, modeling, and visualization modules. |
+| [scripts/](scripts) | Pipeline entry points for EDA, costing, modeling, SQL exports, and notebook execution. |
+| [outputs/](outputs) | Data quality, model, and cost outputs. |
+| [reports/](reports) | Summary report, strategy deck, and generated figures. |
+| [sql/](sql) | DuckDB validation, KPI views, and claim checks. |
+| [power-bi/](power-bi) | Power BI dashboard brief, model notes, DAX, refresh steps, and mockups. |
+| [tests/](tests) | Data integrity, cost model, and modeling tests. |
+
+## Reproduce
 
 Requires Python 3.11+.
 
 ```bash
-git clone https://github.com/shalom-wu/attrition-analysis.git
-cd attrition-analysis
-python -m venv .venv && source .venv/bin/activate   # .venv\Scripts\activate on Windows
+git clone https://github.com/shalom-wu/employee-attrition-risk-and-retention.git
+cd employee-attrition-risk-and-retention
+python -m venv .venv
 pip install -r requirements.txt
 pip install -e .
 
-# Full pipeline (~2 min, deterministic — all seeds fixed)
 python scripts/run_eda.py
 python scripts/run_cost_model.py
 python scripts/run_modeling.py
-python scripts/make_notebook.py     # re-executes the notebook
-
-pytest                              # data integrity + cost model tests
-```
-
-The dataset ships with the repo (it is small and publicly redistributable);
-[data/README.md](data/README.md) documents the source and an alternative
-download path.
-
-## SQL and Power BI layer
-
-The project includes a local DuckDB layer in [sql/](sql). SQL is used for
-reproducible row-count checks, attrition KPI cuts, segment validation, and the
-Power BI export tables. Start with [sql/README.md](sql/README.md), then run:
-
-```bash
 python scripts/run_sql.py
+pytest
 ```
 
-The script exports Power BI-ready CSVs to `data/powerbi/`: employee fact data,
-department/job-role/overtime/tenure KPI cuts, cost by department, and the
-flight-risk segment table. The [power-bi/](power-bi) folder contains a dashboard
-brief, data model, DAX measures, manual build instructions, refresh steps, and
-static mockups. No `.pbix` is included yet; the folder documents the exact
-manual Power BI Desktop build. No dashboard placeholder is included.
+On Windows, activate the virtual environment with `.venv\Scripts\activate`. On macOS/Linux, use `source .venv/bin/activate`.
 
-The workflow is: raw synthetic HR sample -> Python cleaning/cost/modeling ->
-DuckDB validation and KPI exports -> Power BI stakeholder dashboard.
+## Reporting Layer
 
-## Caveats & limitations
+SQL is used as the validation layer for row counts, KPI cuts, segment checks, and Power BI-ready exports. Run `python scripts/run_sql.py` to write the dashboard input tables to `data/powerbi/`.
 
-- **The data is synthetic and cross-sectional.** IBM generated it; there
-  are no hire/exit dates, so no survival analysis or time-based validation
-  is possible. A production version of this work would train on
-  longitudinal HRIS data and validate on a later time window.
-- **Correlation, not causation.** Overtime predicts attrition; the data
-  cannot prove that cutting overtime cuts attrition. Intervention effect
-  sizes (−25%/−20% relative) are industry-plausible assumptions the
-  proposed pilot is designed to test — they are not model outputs.
-- **237 positive cases** → wide confidence intervals on per-role estimates
-  (CV std ≈ 0.03–0.05 AUC).
-- **No voluntary/involuntary split** — some departures may be terminations,
-  which would inflate the "regrettable attrition" cost.
-- **No market compensation benchmark** — low earners leave more, but the
-  data can't distinguish "paid low" from "paid below market," which matters
-  for comp-based interventions.
-- **Ethics**: risk scores are for prioritizing support (check-ins, workload
-  relief), never punitive action, and should not surface in performance
-  contexts.
+The [power-bi/](power-bi) folder contains the dashboard brief, data model notes, DAX measures, manual build instructions, refresh steps, and mockups. No placeholder `.pbix` file is included.
 
-## Author & license
+## Limitations
 
-Shalom Wu ([@shalom-wu](https://github.com/shalom-wu)) · MIT License ·
-Dataset © IBM, redistributed per its public availability (see
-[data/README.md](data/README.md)).
+- The dataset is synthetic and cross-sectional, with no hire or exit dates.
+- The analysis is correlational; it cannot prove that changing overtime or pay will reduce attrition.
+- There are only 237 positive attrition cases, so small role-level estimates have wide uncertainty.
+- The data has no voluntary/involuntary split and no market compensation benchmark.
+- Risk scores should be used to prioritize support, not punitive action.
+
+## License And Credit
+
+MIT License. Copyright (c) 2026 Shalom Wu.
+
+Data credit: IBM HR Analytics synthetic employee attrition dataset. See [data-sources.md](data-sources.md) and [data/data_manifest.md](data/data_manifest.md) for source notes and usage caveats.
