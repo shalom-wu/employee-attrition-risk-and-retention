@@ -1,26 +1,10 @@
 # Employee Attrition: Cost Model, Prediction, and Retention Strategy
 
-**What does 16% annual attrition actually cost a 1,470-person tech company,
-and which retention investments pay for themselves?** Most attrition
-analyses stop at "we built a model that predicts who leaves." This project
-treats prediction as the middle step, not the deliverable: it builds a
-defensible cost-of-attrition model to put a dollar figure on the problem
-($8.67M/yr), uses descriptive analysis and interpretable ML to find where
-the money is bleeding, and then prices three intervention options —
-including one that looks obvious but *fails* the ROI test — into a strategy
-deck a CHRO could act on.
+This repository analyzes employee attrition in the public IBM HR Analytics dataset. The workflow combines descriptive analysis, a replacement-cost model, interpretable classification, and intervention costing.
 
-**Dataset:** the public, synthetic [IBM HR Analytics Employee Attrition &
-Performance](https://www.kaggle.com/datasets/pavansubhash/ibm-hr-analytics-attrition-dataset)
-dataset (1,470 employees; credited and documented in
-[data/README.md](data/README.md)). The dataset is standard; the original
-work here is the **cost model and its benchmarked assumptions**, the
-**intervention ROI comparison**, and the honest treatment of what this data
-can and cannot support.
+The dataset is synthetic, so the results should be read as a reproducible HR analytics framework rather than company-specific evidence. Source details are documented in [data-sources.md](data-sources.md) and [data/data_manifest.md](data/data_manifest.md).
 
-## Key findings
-
-- **Attrition costs $8.67M/yr — 7.6% of payroll.** Average departure:
+## Key findings- **Attrition costs $8.67M/yr — 7.6% of payroll.** Average departure:
   $36.6K ≈ 7.1 months of salary, from a four-component model (recruiting,
   onboarding, vacancy, ramp-up) that lands inside SHRM's 6–9-month
   benchmark and at the conservative end of Gallup's 0.5–2×-salary range.
@@ -122,51 +106,10 @@ department/job-role/overtime/tenure KPI cuts, cost by department, and the
 flight-risk segment table. The [power-bi/](power-bi) folder contains a dashboard
 brief, data model, DAX measures, manual build instructions, refresh steps, and
 static mockups. No `.pbix` is included yet; the folder documents the exact
-manual Power BI Desktop build rather than pretending a dashboard file exists.
+manual Power BI Desktop build. No dashboard placeholder is included.
 
 The workflow is: raw synthetic HR sample -> Python cleaning/cost/modeling ->
 DuckDB validation and KPI exports -> Power BI stakeholder dashboard.
-
-## Portfolio Use
-
-**CV bullets**
-
-- Built an end-to-end employee attrition analysis using Python, scikit-learn,
-  SHAP, and a cost model to identify retention-risk segments and replacement
-  cost exposure across 1,470 synthetic employee records.
-- Translated model output into a retention strategy: overtime-heavy junior
-  employees and early-tenure hires surfaced as the clearest intervention
-  candidates.
-- SQL-focused: Added DuckDB validation and KPI views that reproduce attrition,
-  cost, overtime, tenure, and segment cuts from the included project data.
-- Power BI-focused: Prepared dashboard-ready tables and build documentation for
-  an executive KPI, attrition diagnostic, and retention decision-support report.
-
-**LinkedIn description**
-
-> Employee Attrition Analysis & Retention Strategy - I built this project to
-> answer a practical HR question: where is attrition risk concentrated, and
-> what would it cost the business if those departures are not addressed? The
-> dataset is IBM's fictional HR sample via Kaggle, so I treated the results as
-> a decision-support framework rather than company truth.
-
-**Interview explanation**
-
-> "I used Python for the modeling and cost logic, SQL as the reproducible
-> validation layer, and Power BI as the stakeholder-facing version. The data is
-> synthetic and cross-sectional, so I would use this as a retention
-> prioritization framework, not proof that one factor causes attrition."
-
-**Likely interview questions**
-
-1. *Why use a synthetic HR dataset?* Because it is public and safe to share;
-   the portfolio signal is the workflow, cost framing, and interpretation.
-2. *How would this change with company data?* I would use time-based exits,
-   distinguish voluntary and involuntary turnover, and validate on a later
-   period.
-3. *How do the tools work together?* Python does modeling and cost work, SQL
-   checks definitions and exports KPI tables, and Power BI turns those same
-   definitions into a stakeholder dashboard.
 
 ## Caveats & limitations
 
