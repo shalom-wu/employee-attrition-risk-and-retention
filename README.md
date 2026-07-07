@@ -24,7 +24,7 @@ The dataset is synthetic, so the results should be read as a reusable HR analyti
 | 4 | Raw segment cuts miss promotion stagnation. | Once tenure is controlled for, promotion stagnation appears as a material risk factor. |
 | 5 | Broad pay raises do not clear the ROI bar. | A targeted overtime and first-year experience program is the stronger economic option under the stated assumptions. |
 
-![Overtime multiplies junior attrition](reports/figures/attrition_joblevel_x_overtime.png)
+![Overtime multiplies junior attrition](https://raw.githubusercontent.com/shalom-wu/employee-attrition-risk-and-retention/main/reports/figures/attrition_joblevel_x_overtime.png)
 
 ## Data
 
